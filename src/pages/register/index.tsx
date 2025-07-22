@@ -1,11 +1,23 @@
 import Link from "next/link";
 
-const LoginPage = () => {
+const RegisterPage = () => {
      return (
           <div className="flex items-center justify-center min-h-screen flex-col gap-2">
-               <h1 className="text-2xl">Login</h1>
+               <h1 className="text-2xl">Register</h1>
 
                <form className="max-w-sm mx-auto p-8 outline-2 outline-slate-300 shadow-2xl rounded-xl">
+                    <div className="mb-5">
+                         <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                              Your name
+                         </label>
+                         <input
+                              type="text"
+                              id="username"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="John Doe"
+                              required
+                         />
+                    </div>
                     <div className="mb-5">
                          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                               Your email
@@ -37,11 +49,11 @@ const LoginPage = () => {
                          Submit
                     </button>
                </form>
-               <Link href={"/register"}>
-                    Dont have account? <span className="underline">Register</span>
+               <Link href={"/login"}>
+                    Already have account? <span className="underline">LogIn here</span>
                </Link>
           </div>
      );
 };
 
-export default LoginPage;
+export default RegisterPage;
