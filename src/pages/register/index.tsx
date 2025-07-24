@@ -35,8 +35,8 @@ const RegisterPage = () => {
      };
 
      return (
-          <div className="flex items-center justify-center min-h-screen flex-col gap-2">
-               {error && <p className="bg-red-200 p-5 rounded-md text-red-800 ">{error}</p>}
+          <div className="flex items-center justify-center min-h-screen flex-col gap-2 relative">
+               {error && <p className="bg-red-200 p-5 rounded-md text-red-800 absolute top-8">{error}</p>}
                <h1 className="text-2xl">Register</h1>
 
                <form className="max-w-sm mx-auto p-8 outline-2 outline-slate-300 shadow-2xl rounded-xl" onSubmit={handleSubmit}>

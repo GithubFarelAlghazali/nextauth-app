@@ -1,11 +1,52 @@
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { redirect } from "next/dist/server/api-utils";
+import { signIn } from "next-auth/react";
 
 const LoginPage = () => {
+     const [error, setError] = useState("");
+     const [loading, setLoading] = useState(false);
+     const { push, query } = useRouter();
+
+     const handleSubmit = async (event: any) => {
+          event.preventDefault();
+          setLoading(true);
+          const form = event.target;
+          const data = {
+               email: form.email.value,
+               password: form.password.value,
+          };
+
+          const callbackUrl: any = query.callbackUrl || "/";
+
+          try {
+               const res = await signIn("credentials", {
+                    redirect: false,
+                    email: data.email,
+                    password: data.password,
+                    callbackUrl,
+               });
+               if (!res?.error) {
+                    setLoading(false);
+                    push(callbackUrl);
+               } else {
+                    setLoading(false);
+                    setError("Email or password is incorrect");
+               }
+          } catch (error: any) {
+               setLoading(false);
+               setError("Email or password is incorrect");
+          }
+     };
+
      return (
-          <div className="flex items-center justify-center min-h-screen flex-col gap-2">
+          <div className="flex items-center justify-center min-h-screen flex-col gap-2 relative">
+               {error && <p className="bg-red-200 p-5 rounded-md text-red-800 absolute top-5">{error}</p>}
+
                <h1 className="text-2xl">Login</h1>
 
-               <form className="max-w-sm mx-auto p-8 outline-2 outline-slate-300 shadow-2xl rounded-xl">
+               <form className="max-w-sm mx-auto p-8 outline-2 outline-slate-300 shadow-2xl rounded-xl" onSubmit={handleSubmit}>
                     <div className="mb-5">
                          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                               Your email
